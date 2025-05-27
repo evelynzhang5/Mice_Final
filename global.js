@@ -17,12 +17,6 @@ const xScale = d3.scaleLinear().domain([0, 1440 * 14]).range([0, innerWidth]);
 const yScale = d3.scaleLinear().range([innerHeight, 0]);
 
 const colorScale = d3.scaleOrdinal(d3.schemeTableau10);
-// if (type === "temperature") {
-//     yScale.domain([36, 39]); // tightly bound for temp
-//   } else {
-//     yScale.domain(d3.extent(mice.flatMap(d => d.values.map(v => v[type]))));
-//   }
-  
 
 const tooltip = d3.select("body").append("div").attr("class", "tooltip").style("display", "none");
 
@@ -48,11 +42,28 @@ Promise.all([
 
   const mice = Object.entries(dataMap);
 
-  yScale.domain(d3.extent(mice.flatMap(([_, d]) => d.map(e => e[type]))));
+//   yScale.domain(d3.extent(mice.flatMap(([_, d]) => d.map(e => e[type]))));
+if (type === "temperature") {
+    yScale.domain([35, 40]);
+  } else {
+    yScale.domain(d3.extent(mice.flatMap(([_, d]) => d.map(e => e[type]))));
+  }
+  
 
-  g.append("g").attr("transform", `translate(0,${innerHeight})`)
+    // X Axis
+  g.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${innerHeight})`)
     .call(d3.axisBottom(xScale).ticks(14).tickFormat(d => `Day ${Math.floor(d / 1440) + 1}`));
-  g.append("g").call(d3.axisLeft(yScale));
+
+  // Y Axis
+  g.append("g")
+    .attr("class", "y-axis")
+    .call(
+      d3.axisLeft(yScale)
+        .ticks(type === "temperature" ? 5 : null)
+        .tickFormat(type === "temperature" ? d3.format(".1f") : null)
+    );
 
   const dots = g.selectAll("circle")
     .data(mice.map(([id, values]) => ({ id, values })))
@@ -63,6 +74,8 @@ Promise.all([
   function render() {
     dots
       .attr("cx", d => xScale(d.values[timeIndex]?.minute))
+    //   .attr("cx", (d, i) => (i + 1) * (innerWidth / (mice.length + 1)))
+
       .attr("cy", d => yScale(d.values[timeIndex]?.[type]))
       .attr("fill", d => colorScale(d.id))
       .on("mouseover", function (event, d) {
@@ -103,8 +116,25 @@ Promise.all([
 
   d3.select("#type-select").on("change", function () {
     type = this.value;
-    yScale.domain(d3.extent(mice.flatMap(d => d.values.map(v => v[type]))));
-    g.select("g").call(d3.axisLeft(yScale));
+    // yScale.domain(d3.extent(mice.flatMap(d => d.values.map(v => v[type]))));
+    if (type === "temperature") {
+        yScale.domain([35, 40
+            
+        ]);
+      } else {
+        yScale.domain(d3.extent(mice.flatMap(d => d.values.map(v => v[type]))));
+      }      
+      
+    // g.select("g").call(d3.axisLeft(yScale));
+    g.select(".y-axis").call(
+
+        d3.axisLeft(yScale)
+          .ticks(type === "temperature" ? 5 : null)
+          .tickFormat(type === "temperature"
+            ? d3.format(".1f") // one decimal for °C
+            : null)
+      );
+      
     render();
   });
 
