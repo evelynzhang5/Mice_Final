@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mouse Activity & Temperature Visualization</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Estrus Rhythm Explorer</h1>
+    <p>Visualizing mouse activity and temperature across ovulation cycles.</p>
+  </header>
+  <main>
+    <div class="controls">
+      <button id="play-button">Play</button>
+      <button id="pause-button">Pause</button>
+      <label for="type-select">View:</label>
+      <select id="type-select">
+        <option value="activity">Activity</option>
+        <option value="temperature">Temperature</option>
+      </select>
+    </div>
+    <svg id="chart" width="960" height="500"></svg>
+  </main>
+  <footer>
+    <p>Data from UCSD Mouse Estrus Study. Interactive visualization using D3.js.</p>
+  </footer>
+  <script src="global.js"></script>
+</body>
+</html>
