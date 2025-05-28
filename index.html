@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mouse Activity & Temperature Visualization</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js" type="module"></script>
+  <script src="global.js" type="module"></script>
+  <script src="writeup.js" type="module"></script>
 </head>
 <body>
   <header>
@@ -24,9 +26,45 @@
     </div>
     <svg id="chart" width="960" height="500"></svg>
   </main>
-  <footer>
-    <p>Data from UCSD Mouse Estrus Study. Interactive visualization using D3.js.</p>
-  </footer>
-  <script src="global.js"></script>
-</body>
+    <!-- === Write-Up Section === -->
+    <section id="writeup">
+      <h2>Project Write-Up</h2>
+  
+      <div class="exp-bar">
+        <button class="exp-bar-header">Functionality Overview</button>
+        <div class="exp-bar-content">
+          <p>
+            This visualization lets you “race” mouse activity and temperature across
+            a two-week (14-day) cycle. Play/Pause controls animate each minute for
+            all subjects simultaneously. You can toggle between <em>activity</em> and
+            <em>temperature</em> views, and hovering on a dot shows the exact value.
+          </p>
+        </div>
+      </div>
+  
+      <div class="exp-bar">
+        <button class="exp-bar-header">Development Process</button>
+        <div class="exp-bar-content">
+          <p>
+            We began by loading per-minute CSVs for activity and temperature and
+            mapping them into a single data structure keyed by mouse ID. Scales and
+            axes were created with D3’s linear and category helpers. A render loop
+            updates positions each “tick” and handles user controls. Finally, we
+            added tooltips and color-coding for clarity.
+          </p>
+        </div>
+      </div>
+  
+      <div class="exp-bar">
+        <button class="exp-bar-header">Future Extensions</button>
+        <div class="exp-bar-content">
+          <p>
+            Potential next steps include letting users select individual mice to
+            highlight, comparing estrus vs. non-estrus days side by side, or
+            overlaying light/dark cycles as background bands.
+          </p>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

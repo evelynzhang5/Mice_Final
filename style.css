@@ -46,4 +46,56 @@ body {
     pointer-events: none;
     font-size: 12px;
   }
-  
+/* Begins Style for Write-Up*/
+
+#writeup {
+  max-width: 800px;
+  margin: 2em auto;
+  padding: 1em;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#writeup h2 {
+  margin-bottom: 0.5em;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.exp-bar {
+  border-top: 1px solid #e0e0e0;
+}
+
+.exp-bar:first-of-type {
+  border-top: none;
+}
+
+.exp-bar-header {
+  width: 100%;
+  text-align: left;
+  padding: 0.75em 1em;
+  font-size: 1.1rem;
+  background: #f0f0f0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.exp-bar-header:hover {
+  background: #e0e0e0;
+}
+
+.exp-bar-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 1em;
+}
+
+.exp-bar.open .exp-bar-content {
+  max-height: 200px; /* adjust if your content is taller */
+  margin-bottom: 1em;
+}
+/* Ends Style For Write-Up */
